@@ -47,8 +47,6 @@ module Danger
       end
     end
 
-    private
-
     def select_files(file_blacklist)
       files = modified_files + deleted_files
       file_blacklist = file_blacklist.map { |f| /#{f}/ }
@@ -60,7 +58,6 @@ module Danger
       # gonna be changed in next version
       files[0...6]
     end
-
 
     def compose_urls(files)
       host = 'https://' + env.request_source.host
@@ -97,11 +94,9 @@ module Danger
     def find_reviewers(users, user_blacklist, max_reviewers)
       user_blacklist << pr_author
       users = users.select { |k, _| !user_blacklist.include? k }
+      users = users.sort_by { |_, value| value }.reverse
 
-      max_values = users.values.sort.reverse[0..max_reviewers]
-      users = users.select { |_, v| max_values.include? v }
-
-      users.keys
+      users[0...max_reviewers].map { |u| u[0] }
     end
 
   end

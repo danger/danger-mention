@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = DangerMention::VERSION
   spec.authors       = ['Wojtek Lukaszuk']
   spec.email         = ['wojciech.lukaszuk@icloud.com']
-  spec.description   = %q{Danger plugin to automatically mention potential reviewers on pull requests.}
-  spec.summary       = %q{Danger plugin to automatically mention potential reviewers on pull requests}
+  spec.description   = 'Danger plugin to automatically mention potential reviewers on pull requests.'
+  spec.summary       = 'Danger plugin to automatically mention potential reviewers on pull requests.'
   spec.homepage      = 'https://github.com/wojteklu/danger-mention'
   spec.license       = 'MIT'
 
@@ -21,5 +21,8 @@ Gem::Specification.new do |spec|
   # General ruby development
   spec.add_development_dependency 'bundler', '~> 1.3'
   spec.add_development_dependency 'rake', '~> 10.0'
+
+  # Testing support
+  spec.add_development_dependency 'rspec', '~> 3.4'
 
 end
