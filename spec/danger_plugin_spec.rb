@@ -12,20 +12,19 @@ module Danger
 
     describe :select_files do
       before do
-        modified_files = (1..4).to_a.map { |i| format('M%d', i) }
-        deleted_files = (1..4).to_a.map { |i| format('D%d', i) }
-        allow(@mention).to receive(:modified_files).and_return(modified_files)
-        allow(@mention).to receive(:deleted_files).and_return(deleted_files)
+        modified_files = (1..2).to_a.map { |i| format('M%d', i) }
+        deleted_files = (1..2).to_a.map { |i| format('D%d', i) }
+        allow(Finder).to receive(:parse).and_return(modified_files + deleted_files)
       end
 
-      it 'takes first 6 modified files' do
+      it 'takes first 3 modified files' do
         files = @mention.select_files([])
-        expect(files).to eq %w(M1 M2 M3 M4 D1 D2)
+        expect(files).to eq %w(M1 M2 D1)
       end
 
       it 'does not return blacklisted files' do
         files = @mention.select_files(['M.*'])
-        expect(files).to eq %w(D1 D2 D3 D4)
+        expect(files).to eq %w(D1 D2)
       end
     end
 

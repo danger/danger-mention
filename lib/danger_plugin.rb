@@ -1,4 +1,5 @@
 require 'open-uri'
+require_relative 'finder'
 
 module Danger
 
@@ -48,15 +49,13 @@ module Danger
     end
 
     def select_files(file_blacklist)
-      files = modified_files + deleted_files
+      files = Finder.parse(env.scm.diff)
+
       file_blacklist = file_blacklist.map { |f| /#{f}/ }
       re = Regexp.union(file_blacklist)
-
       files = files.select { |f| !f.match(re) }
 
-      # select just 6 random files
-      # gonna be changed in next version
-      files[0...6]
+      files[0...3]
     end
 
     def compose_urls(files)
