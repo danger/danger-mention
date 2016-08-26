@@ -25,4 +25,12 @@ Gem::Specification.new do |spec|
   # Testing support
   spec.add_development_dependency 'rspec', '~> 3.4'
 
+  # Linting code and docs
+  spec.add_development_dependency 'rubocop', '~> 0.41'
+  spec.add_development_dependency 'yard', '~> 0.8'
+
+  # Makes testing easy via `bundle exec guard`
+  spec.add_development_dependency 'guard', '~> 2.14'
+  spec.add_development_dependency 'guard-rspec', '~> 4.7'
+
 end
