@@ -1,9 +1,11 @@
 require File.expand_path('../spec_helper', __FILE__)
 
 module Danger
+
   describe DangerMention do
     before do
       @mention = testing_dangerfile.mention
+      DangerMention.send(:public, *DangerMention.private_instance_methods)
     end
 
     it 'is a plugin' do

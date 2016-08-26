@@ -48,6 +48,8 @@ module Danger
       end
     end
 
+    private
+
     def select_files(file_blacklist)
       files = Finder.parse(env.scm.diff)
 
