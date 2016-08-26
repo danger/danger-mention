@@ -4,11 +4,7 @@ A [Danger](https://github.com/danger/danger) plugin to automatically mention pot
 
 ## Installation
 
-Add this line to your Gemfile:
-
-```rb
-gem 'danger-mention'
-```
+    $ gem install danger-mention
 
 ## Usage
 
@@ -21,7 +17,7 @@ mention.run
 Additionally you can set up maximum number of people to ping in the PR message, regexes of ignored files and list of users that will never be mentioned.
 
 ```rb
-mention.run(2, [".*.h"], ["wojteklu"])
+mention.run(2, ["Pods/"], ["wojteklu"])
 ```
 
 ## License
