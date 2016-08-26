@@ -7,21 +7,33 @@ module Danger
   # It downloads and parses the blame information of changed files
   # to figure out who may be a good reviewer.
   #
-  # @example Specifying max reviewers.
+  # @example Running plugin with reviewers count specified
   #
-  #          # Find maximum two reviewers without specifying
-  #          # ignored files and users
+  #          # Find maximum two reviewers
   #          mention.run(2, [], [])
   #
+  # @example Running plugin with some files blacklisted
+  #
+  #          # Find reviewers without parsing blame information
+  #          # from files matching to 'Pods/*'
+  #          mention.run(2, ["Pods/*"], [])
+  #
+  # @example Running plugin with some users blacklisted
+  #
+  #          # Find reviewers ignoring users 'wojteklu' and 'danger'
+  #          mention.run(2, [], ["wojteklu", "danger"])
+  #
+  # @tags github, review, mention, blame
+
   class DangerMention < Plugin
 
     # Mention potential reviewers.
     #
-    # @param   Integer max_reviewers
+    # @param   [Integer] max_reviewers
     #          Maximum number of people to ping in the PR message, default is 3.
-    # @param   [String] file_blacklist
+    # @param   [Array<String>] file_blacklist
     #          Regexes of ignored files.
-    # @param   [String] user_blacklist
+    # @param   [Array<String>] user_blacklist
     #          List of users that will never be mentioned.
     # @return  [void]
     #
