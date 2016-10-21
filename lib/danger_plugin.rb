@@ -75,7 +75,7 @@ module Danger
     def compose_urls(files)
       host = 'https://' + env.request_source.host
       repo_slug = env.ci_source.repo_slug
-      path = host + '/' + repo_slug + '/' + 'blame' + '/' + branch_for_base
+      path = host + '/' + repo_slug + '/' + 'blame' + '/' + github.branch_for_base
 
       urls = []
       files.each do |file|

@@ -34,7 +34,7 @@ module Danger
       before do
         allow(@mention).to receive_message_chain('env.request_source.host').and_return('host')
         allow(@mention).to receive_message_chain('env.ci_source.repo_slug').and_return('slug')
-        allow(@mention).to receive_message_chain('branch_for_base').and_return('branch')
+        allow(@mention).to receive_message_chain('github.branch_for_base').and_return('branch')
       end
 
       it 'composes urls for files' do
