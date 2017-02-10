@@ -32,21 +32,22 @@ module Danger
 
     describe :compose_urls do
       before do
-        allow(@mention).to receive_message_chain('env.request_source.host').and_return('host')
+        github = Danger::RequestSources::GitHub.new({}, testing_env)
+        allow(@mention).to receive_message_chain('env.request_source').and_return github
         allow(@mention).to receive_message_chain('env.ci_source.repo_slug').and_return('slug')
         allow(@mention).to receive_message_chain('github.branch_for_base').and_return('branch')
       end
 
       it 'composes urls for files' do
         files = (1..4).to_a.map { |i| format('M%d', i) }
-        expected = files.map { |f| format('https://host/slug/blame/branch/%s', f) }
+        expected = files.map { |f| format('https://github.com/slug/blame/branch/%s', f) }
         results = @mention.compose_urls(files)
         expect(results).to eq expected
       end
 
       describe :compose_urls do
         before do
-          allow(@mention).to receive(:pr_author).and_return('author')
+          allow(@mention).to receive_message_chain('github.pr_author').and_return('author')
         end
 
         it 'finds potential reviewers' do
@@ -88,7 +89,31 @@ module Danger
           expect(output).to include('@user2')
         end
       end
+    end
 
+
+    describe :compose_urls_gitlab do
+
+      it 'composes gitlab urls for files' do
+        stub_env = {
+          "DRONE" => true,
+          "DRONE_REPO" => "k0nserv/danger-test",
+          "DRONE_PULL_REQUEST" => "593728",
+          "DANGER_GITLAB_API_TOKEN" => "a86e56d46ac78b"
+        }
+
+        env = Danger::EnvironmentManager.new(testing_env)
+        env.request_source = Danger::RequestSources::GitLab.new(Danger::Drone.new(stub_env), testing_env)
+        danger = Danger::Dangerfile.new(env)
+        allow(danger.gitlab).to receive(:branch_for_base).and_return("branch_name")
+
+        files = (1..4).to_a.map { |i| format('M%d', i) }
+        expected = files.map { |f| format('https://gitlab.com/artsy/eigen/blame/branch_name/%s', f) }
+
+        results = danger.mention.compose_urls(files)
+        expect(results).to eq expected
+      end
     end
   end
 end
+

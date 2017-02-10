@@ -75,7 +75,18 @@ module Danger
     def compose_urls(files)
       host = 'https://' + env.request_source.host
       repo_slug = env.ci_source.repo_slug
-      path = host + '/' + repo_slug + '/' + 'blame' + '/' + github.branch_for_base
+
+      path = ""
+      if defined? @dangerfile.gitlab
+        # https://gitlab.com/danger-systems/danger.systems/blame/danger_update/.gitlab-ci.yml
+        path = host + '/' + repo_slug + '/' + 'blame' + '/' + gitlab.branch_for_base
+
+      elsif defined? @dangerfile.github
+        # https://github.com/artsy/emission/blame/master/dangerfile.js
+        path = host + '/' + repo_slug + '/' + 'blame' + '/' + github.branch_for_base
+      else
+        raise "This plugin does not yet support bitbucket, would love PRs: https://github.com/danger/danger-mention/"
+      end
 
       urls = []
       files.each do |file|
@@ -105,7 +116,12 @@ module Danger
     end
 
     def find_reviewers(users, user_blacklist, max_reviewers)
-      user_blacklist << pr_author
+      if defined? @dangerfile.gitlab
+        user_blacklist << gitlab.mr_author
+      elsif defined? @dangerfile.github
+        user_blacklist << github.pr_author
+      end
+
       users = users.select { |k, _| !user_blacklist.include? k }
       users = users.sort_by { |_, value| value }.reverse
 

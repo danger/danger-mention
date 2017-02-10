@@ -1,6 +1,6 @@
 # Danger Mention
 
-A [Danger](https://github.com/danger/danger) plugin to automatically mention potential reviewers on pull requests.
+A [Danger](https://github.com/danger/danger) plugin to automatically mention potential reviewers on pull requests on GitHub and GitLab.
 
 ## Installation
 
