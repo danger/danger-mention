@@ -14,11 +14,24 @@ The easiest way to use is just add this to your Dangerfile:
 mention.run
 ```
 
-Additionally you can set up maximum number of people to ping in the PR message, regexes of ignored files and list of users that will never be mentioned.
+<blockquote>Running plugin with reviewers count specified
+  <pre>
+# Find maximum two reviewers
+mention.run(2, [], [])</pre>
+</blockquote>
 
-```rb
-mention.run(2, ["Pods/"], ["wojteklu"])
-```
+<blockquote>Running plugin with some files blacklisted
+  <pre>
+# Find reviewers without parsing blame information
+# from files matching to 'Pods/*'
+mention.run(2, ["Pods/*"], [])</pre>
+</blockquote>
+
+<blockquote>Running plugin with some users blacklisted
+  <pre>
+# Find reviewers ignoring users 'wojteklu' and 'danger'
+mention.run(2, [], ["wojteklu", "danger"])</pre>
+</blockquote>
 
 ## License
 

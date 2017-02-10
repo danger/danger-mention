@@ -81,7 +81,7 @@ module Danger
 
         it 'mentions potential reviewers' do
           @mention.run
-          output = @mention.status_report[:markdowns].first
+          output = @mention.status_report[:markdowns].first.message
 
           expect(output).to_not be_empty
           expect(output).to include('@user1')
