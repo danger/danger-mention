@@ -120,6 +120,7 @@ DEPENDENCIES
   danger-mention!
   guard (~> 2.14)
   guard-rspec (~> 4.7)
+  pry
   rake (~> 10.0)
   rspec (~> 3.4)
   rubocop (~> 0.41)
