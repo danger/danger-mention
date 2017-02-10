@@ -2,6 +2,8 @@
 
 A [Danger](https://github.com/danger/danger) plugin to automatically mention potential reviewers on pull requests on GitHub and GitLab.
 
+**Note**: This plugin uses the web-scraping of GitHub.com and GitLab to detect the authors to find potential reviewers. This might cause the plugin to break if either of those pages introduce design changes.
+
 ## Installation
 
     $ gem install danger-mention
