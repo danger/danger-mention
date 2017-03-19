@@ -125,7 +125,7 @@ module Danger
       users = users.select { |k, _| !user_blacklist.include? k }
       users = users.sort_by { |_, value| value }.reverse
 
-      users[0...max_reviewers].map { |u| u[0] }
+      users[0...max_reviewers].map { |u| u[0] }.compact
     end
 
   end
