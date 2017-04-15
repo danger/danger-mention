@@ -35,6 +35,10 @@ mention.run(2, ["Pods/*"], [])</pre>
 mention.run(2, [], ["wojteklu", "danger"])</pre>
 </blockquote>
 
+## Caveats
+
+Unfortunately Github does not allow access to the blame route for private repositories. Therefore this plugin only works with public repos.
+
 ## License
 
 This project is licensed under the terms of the MIT license. See the LICENSE file.
